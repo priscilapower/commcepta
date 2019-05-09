@@ -97,7 +97,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('product.index') }}">
+                                <a class="nav-link" href="{{ route('seller.index') }}">
                                     {{ __('Sellers') }}
                                 </a>
                             </li>

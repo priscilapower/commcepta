@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SellerRequest;
 use App\Seller;
-use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Display a listing of the sellers
+     *
+     * @param  \App\Seller  $model
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(Seller $model)
     {
-        return view('seller.index', ['sellers' => Seller::all()]);
+        return view('seller.index', ['sellers' => $model->paginate(15)]);
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show the form for creating a new seller
+     *
+     * @return \Illuminate\View\View
      */
     public function create()
     {
@@ -24,54 +29,66 @@ class SellerController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * Store a newly created seller in storage
+     *
+     * @param  \App\Http\Requests\SellerRequest  $request
+     * @param  \App\Seller  $model
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(SellerRequest $request, Seller $model)
     {
-        Seller::saveOrFail($request->all());
-        return view('seller.index', ['sellers' => Seller::all()]);
+        $model->create($request->all());
+
+        return redirect()->route('seller.index')->withStatus(__('Seller successfully created.'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  \App\Seller $seller
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Seller $seller)
     {
-        return view('seller.view', ['seller' => Seller::findOrFail($id)]);
+        return view('seller.view', compact('seller'));
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Show the form for editing the specified seller
+     *
+     * @param  \App\Seller $seller
+     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Seller $seller)
     {
-        return view('seller.edit', ['seller' => Seller::findOrFail($id)]);
+        return view('seller.edit', compact('seller'));
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Update the specified seller in storage
+     *
+     * @param SellerRequest $request
+     * @param Seller $seller
+     * @return mixed
      */
-    public function update(Request $request, $id)
+    public function update(SellerRequest $request, Seller $seller)
     {
-        Seller::update($request->all(), $id);
-        return view('seller.index', ['sellers' => Seller::all()]);
+        $seller->update($request->all());
+
+        return redirect()->route('seller.index')->withStatus(__('Seller successfully updated.'));
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * Remove the specified seller from storage
+     *
+     * @param Seller $seller
+     * @return mixed
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Seller $seller)
     {
-        Seller::destroy($id);
-        return view('seller.index', ['sellers' => Seller::all()]);
+        $seller->delete();
+
+        return redirect()->route('seller.index')->withStatus(__('Seller successfully deleted.'));
     }
 }
