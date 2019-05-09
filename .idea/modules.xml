@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../argon-dashboard-laravel-master/.idea/argon-dashboard-laravel-master.iml" filepath="$PROJECT_DIR$/../argon-dashboard-laravel-master/.idea/argon-dashboard-laravel-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/commcepta.iml" filepath="$PROJECT_DIR$/.idea/commcepta.iml" />
     </modules>
   </component>
