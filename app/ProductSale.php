@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ProductSale extends Pivot
 {
-    protected $table = 'sales_products';
+    protected $table = 'product_sale';
     protected $fillable = [
-        'id_sale',
-        'id_product',
-        'amount',
+        'sale_id',
+        'product_id',
     ];
+
+    public $timestamps = false;
 }
