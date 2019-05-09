@@ -15,7 +15,7 @@ class Seller extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sale()
+    public function sales()
     {
         return $this->hasMany('App\Sale');
     }

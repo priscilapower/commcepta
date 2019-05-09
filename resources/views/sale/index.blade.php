@@ -1,7 +1,7 @@
-@extends('layouts.app', ['title' => __('Product Management')])
+@extends('layouts.app', ['title' => __('Sale Management')])
 
 @section('content')
-    @include('product.partials.header', ['title' => __('Products')])
+    @include('sale.partials.header', ['title' => __('Sales')])
 
     <div class="container-fluid mt--7">
         <div class="row">
@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Products') }}</h3>
+                                <h3 class="mb-0">{{ __('Sales') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('product.create') }}" class="btn btn-sm btn-primary">{{ __('Add product') }}</a>
+                                <a href="{{ route('sale.create') }}" class="btn btn-sm btn-primary">{{ __('Add sale') }}</a>
                             </div>
                         </div>
                     </div>
@@ -33,30 +33,30 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('Name') }}</th>
+                                <th scope="col">{{ __('Seller') }}</th>
                                 <th scope="col">{{ __('Price') }}</th>
-                                <th scope="col">{{ __('Creation Date') }}</th>
+                                <th scope="col">{{ __('Date') }}</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($sales as $sale)
                                 <tr>
-                                    <td>{{ $product->name }}</td>
-                                    <td>{{ $product->price }}</td>
-                                    <td>{{ $product->created_at->format('d/m/Y H:i') }}</td>
+                                    <td>{{ $sale->seller->name }}</td>
+                                    <td>$ {{ number_format($sale->total_price,2) }}</td>
+                                    <td>{{ $sale->created_at->format('d/m/Y H:i') }}</td>
                                     <td class="text-right">
                                         <div class="dropdown">
                                             <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                <form action="{{ route('product.destroy', $product) }}" method="post">
+                                                <form action="{{ route('sale.destroy', $sale) }}" method="post">
                                                     @csrf
                                                     @method('delete')
 
-                                                    <a class="dropdown-item" href="{{ route('product.edit', $product) }}">{{ __('Edit') }}</a>
-                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this product?") }}') ? this.parentElement.submit() : ''">
+                                                    <a class="dropdown-item" href="{{ route('sale.edit', $sale) }}">{{ __('Edit') }}</a>
+                                                    <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this sale?") }}') ? this.parentElement.submit() : ''">
                                                         {{ __('Delete') }}
                                                     </button>
                                                 </form>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $products->links() }}
+                            {{ $sales->links() }}
                         </nav>
                     </div>
                 </div>

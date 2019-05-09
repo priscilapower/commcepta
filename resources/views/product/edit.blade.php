@@ -34,6 +34,16 @@
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group{{ $errors->has('price') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Price') }}</label>
+                                    <input type="number" name="price" id="input-price"  min="0.01" step="0.01" class="form-control form-control-alternative{{ $errors->has('price') ? ' is-invalid' : '' }}" placeholder="{{ __('Price') }}" value="{{ old('price', $product->price) }}" required autofocus>
+
+                                    @if ($errors->has('price'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('price') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                                 </div>

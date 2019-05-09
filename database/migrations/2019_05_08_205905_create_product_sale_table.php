@@ -13,10 +13,10 @@ class CreateSalesProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sales_products', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_sale');
+        Schema::create('product_sale', function (Blueprint $table) {
+            $table->unsignedBigInteger('sale_id');
             $table->foreign('id_sale')->references('id')->on('sales');
-            $table->unsignedBigInteger('id_product');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('id_product')->references('id')->on('products');
         });
     }
@@ -28,6 +28,6 @@ class CreateSalesProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_products');
+        Schema::dropIfExists('product_sale');
     }
 }

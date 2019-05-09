@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => __('Seller Management')])
 
 @section('content')
-    @include('layouts.headers.cards')
+    @include('seller.partials.header', ['title' => __('Sellers')])
 
     <div class="container-fluid mt--7">
         <div class="row">

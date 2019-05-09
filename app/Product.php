@@ -9,14 +9,15 @@ class Product extends Model
     protected $table = 'products';
     protected $fillable = [
         'id',
-        'name'
+        'name',
+        'price',
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function sale()
+    public function sales()
     {
-        return $this->belongsToMany('App\Sale')->using('App\SaleProduct');
+        return $this->belongsToMany('App\Sale')->using('App\ProductSale');
     }
 }
