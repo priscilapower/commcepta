@@ -10,12 +10,20 @@ Após fazer o clone do projeto em seu computador, utilize o terminal para criar 
 
 Com o banco criado, vá até o arquivo **.env** e altere os dados de conexão para o seu banco de dados.
 
+Vá até o seu arquivo **.env.example**, que fica localizado na raíz do projeto, e crie uma cópia apenas como .env e altere os valores de banco de dados de acordo com a sua configuração de conexão.
+
 DB_CONNECTION=mysql <br/>
 DB_HOST=127.0.0.1 <br/>
 DB_PORT=3306 <br/>
 DB_DATABASE=commcepta <br/>
 DB_USERNAME=root <br/>
 DB_PASSWORD=root
+
+
+Execute no terminal o comando do laravel que registra uma chave validando a sua aplicação:
+
+`php artisan key:generate`
+
 
 Agora rode no terminal o comando para fazer o download das dependências do projeto:
 
