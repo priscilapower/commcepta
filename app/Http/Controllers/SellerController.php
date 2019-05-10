@@ -15,7 +15,7 @@ class SellerController extends Controller
      */
     public function index(Seller $model)
     {
-        return view('seller.index', ['sellers' => $model->paginate(15)]);
+        return view('seller.index', ['sellers' => $model->paginate(10)]);
     }
 
     /**

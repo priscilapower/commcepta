@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function index(Product $model)
     {
-        return view('product.index', ['products' => $model->paginate(15)]);
+        return view('product.index', ['products' => $model->paginate(10)]);
     }
 
     /**

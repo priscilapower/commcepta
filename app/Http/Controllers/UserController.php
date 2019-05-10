@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        return view('users.index', ['users' => $model->paginate(10)]);
     }
 
     /**
@@ -74,8 +74,9 @@ class UserController extends Controller
     /**
      * Remove the specified user from storage
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\RedirectResponse
+     * @param User $user
+     * @return mixed
+     * @throws \Exception
      */
     public function destroy(User  $user)
     {
