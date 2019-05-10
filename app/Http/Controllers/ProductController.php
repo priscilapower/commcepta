@@ -37,20 +37,13 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request, Product $model)
     {
-        $model->create($request->all());
+        try {
+            $model->create($request->all());
 
-        return redirect()->route('product.index')->withStatus(__('Product successfully created.'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Product $product
-     * @return \Illuminate\View\View
-     */
-    public function show(Product $product)
-    {
-        return view('product.view', compact('product'));
+            return redirect()->route('product.index')->withStatus(__('Product successfully created.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('product.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -73,9 +66,13 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        try {
+            $product->update($request->all());
 
-        return redirect()->route('product.index')->withStatus(__('Product successfully updated.'));
+            return redirect()->route('product.index')->withStatus(__('Product successfully updated.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('product.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -87,8 +84,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        try {
+            $product->delete();
 
-        return redirect()->route('product.index')->withStatus(__('Product successfully deleted.'));
+            return redirect()->route('product.index')->withStatus(__('Product successfully deleted.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('product.index')->withError(__('An error has occurred.'));
+        }
     }
 }

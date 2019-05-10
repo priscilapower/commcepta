@@ -38,9 +38,13 @@ class UserController extends Controller
      */
     public function store(UserRequest $request, User $model)
     {
-        $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
+        try {
+            $model->create($request->merge(['password' => Hash::make($request->get('password'))])->all());
 
-        return redirect()->route('user.index')->withStatus(__('User successfully created.'));
+            return redirect()->route('user.index')->withStatus(__('User successfully created.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('user.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -63,12 +67,16 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User  $user)
     {
-        $user->update(
-            $request->merge(['password' => Hash::make($request->get('password'))])
-                ->except([$request->get('password') ? '' : 'password']
-        ));
+        try {
+            $user->update(
+                $request->merge(['password' => Hash::make($request->get('password'))])
+                    ->except([$request->get('password') ? '' : 'password']
+                    ));
 
-        return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
+            return redirect()->route('user.index')->withStatus(__('User successfully updated.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('user.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -80,8 +88,12 @@ class UserController extends Controller
      */
     public function destroy(User  $user)
     {
-        $user->delete();
+        try {
+            $user->delete();
 
-        return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
+            return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('user.index')->withError(__('An error has occurred.'));
+        }
     }
 }

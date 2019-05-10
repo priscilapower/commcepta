@@ -37,20 +37,13 @@ class SellerController extends Controller
      */
     public function store(SellerRequest $request, Seller $model)
     {
-        $model->create($request->all());
+        try {
+            $model->create($request->all());
 
-        return redirect()->route('seller.index')->withStatus(__('Seller successfully created.'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Seller $seller
-     * @return \Illuminate\View\View
-     */
-    public function show(Seller $seller)
-    {
-        return view('seller.view', compact('seller'));
+            return redirect()->route('seller.index')->withStatus(__('Seller successfully created.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('seller.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -73,9 +66,13 @@ class SellerController extends Controller
      */
     public function update(SellerRequest $request, Seller $seller)
     {
-        $seller->update($request->all());
+        try {
+            $seller->update($request->all());
 
-        return redirect()->route('seller.index')->withStatus(__('Seller successfully updated.'));
+            return redirect()->route('seller.index')->withStatus(__('Seller successfully updated.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('seller.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -87,8 +84,12 @@ class SellerController extends Controller
      */
     public function destroy(Seller $seller)
     {
-        $seller->delete();
+        try {
+            $seller->delete();
 
-        return redirect()->route('seller.index')->withStatus(__('Seller successfully deleted.'));
+            return redirect()->route('seller.index')->withStatus(__('Seller successfully deleted.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('seller.index')->withError(__('An error has occurred.'));
+        }
     }
 }

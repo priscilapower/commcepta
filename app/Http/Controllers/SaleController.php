@@ -41,21 +41,14 @@ class SaleController extends Controller
      */
     public function store(SaleRequest $request, Sale $model)
     {
-        $sale = $model->create($request->except(['products']));
-        $sale->products()->attach($request->get('products'));
+        try {
+            $sale = $model->create($request->except(['products']));
+            $sale->products()->attach($request->get('products'));
 
-        return redirect()->route('sale.index')->withStatus(__('Sale successfully created.'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Sale $sale
-     * @return \Illuminate\View\View
-     */
-    public function show(Sale $sale)
-    {
-        return view('sale.view', compact('sale'));
+            return redirect()->route('sale.index')->withStatus(__('Sale successfully created.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('sale.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -81,10 +74,14 @@ class SaleController extends Controller
      */
     public function update(SaleRequest $request, Sale $sale)
     {
-        $sale->update($request->all());
-        $sale->products()->sync($request->get('products'));
+        try {
+            $sale->update($request->all());
+            $sale->products()->sync($request->get('products'));
 
-        return redirect()->route('sale.index')->withStatus(__('Sale successfully updated.'));
+            return redirect()->route('sale.index')->withStatus(__('Sale successfully updated.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('sale.index')->withError(__('An error has occurred.'));
+        }
     }
 
     /**
@@ -96,8 +93,12 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        $sale->delete();
+        try {
+            $sale->delete();
 
-        return redirect()->route('sale.index')->withStatus(__('Sale successfully deleted.'));
+            return redirect()->route('sale.index')->withStatus(__('Sale successfully deleted.'));
+        } catch (\Exception $exception) {
+            return redirect()->route('sale.index')->withError(__('An error has occurred.'));
+        }
     }
 }
